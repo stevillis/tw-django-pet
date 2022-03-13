@@ -5,5 +5,6 @@
 ### Tecnologias
 
 - Django
-- MySQL
+- MySQL (Desenvolvimento)
+- PostgreSQL (Produção)
 - Admin LTE 2
