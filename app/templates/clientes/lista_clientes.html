@@ -24,7 +24,7 @@
                 <tbody>
                 {% for cliente in clientes %}
                     <tr>
-                        <td>{{ cliente.nome }}</td>
+                        <td><a href="{% url 'listar-cliente' cliente.pk %}">{{ cliente.nome }}</a></td>
                         <td>{{ cliente.cpf }}</td>
                         <td>{{ cliente.profissao }}</td>
                         <td class="acoes-tabela">
@@ -41,9 +41,11 @@
             </table>
 
             <hr>
-            <a href="{% url 'cadastrar-cliente' %}">
-                <button class="btn btn-primary">Cadastrar</button>
-            </a>
+            <div class="text-center">
+                <a href="{% url 'cadastrar-cliente' %}">
+                    <button class="btn btn-primary">Cadastrar</button>
+                </a>
+            </div>
         </div>
     </div>
 {% endblock content %}

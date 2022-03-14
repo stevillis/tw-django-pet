@@ -11,6 +11,11 @@ def listar_clientes(request):
     return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
 
 
+def listar_cliente_id(request, pk):
+    cliente_bd = cliente_service.listar_cliente_id(pk)
+    return render(request, 'clientes/lista_cliente.html', {'cliente': cliente_bd})
+
+
 def cadastrar_cliente(request):
     if request.method == 'POST':
         form_cliente = ClienteForm(request.POST)
