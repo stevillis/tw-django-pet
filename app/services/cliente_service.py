@@ -35,3 +35,7 @@ def editar_cliente(cliente_antigo: ClienteModel, cliente_novo: ClienteObject):
     cliente_antigo.data_nascimento = cliente_novo.data_nascimento
     cliente_antigo.profissao = cliente_novo.profissao
     cliente_antigo.save(force_update=True)
+
+
+def excluir_cliente(cliente: ClienteModel):
+    cliente.delete()

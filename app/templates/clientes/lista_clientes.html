@@ -18,6 +18,7 @@
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>Profissão</th>
+                    <th>Endereço</th>
                     <th class="text-center">Ações</th>
                 </tr>
                 </thead>
@@ -27,11 +28,14 @@
                         <td><a href="{% url 'listar-cliente' cliente.pk %}">{{ cliente.nome }}</a></td>
                         <td>{{ cliente.cpf }}</td>
                         <td>{{ cliente.profissao }}</td>
+                        <td>
+                            {{ cliente.endereco.rua }}, {{ cliente.endereco.cidade }} - {{ cliente.endereco.estado }}
+                        </td>
                         <td class="acoes-tabela">
                             <a href="{% url 'editar-cliente' cliente.pk %}" class="btn btn-info mr-2">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
-                            <a href="#" class="btn btn-danger mr-2">
+                            <a href="{% url 'excluir-cliente' cliente.pk %}" class="btn btn-danger mr-2">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </a>
                         </td>

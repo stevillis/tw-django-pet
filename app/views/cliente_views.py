@@ -95,3 +95,13 @@ def editar_cliente(request, pk):
         'is_edit': True
     }
     return render(request, 'clientes/form_cliente.html', context)
+
+
+def excluir_cliente(request, pk):
+    cliente_bd = cliente_service.listar_cliente_id(pk)
+    endereco_bd = endereco_service.listar_endereco_id(pk)
+    if request.method == 'POST':
+        cliente_service.excluir_cliente(cliente_bd)
+        endereco_service.excluir_endereco(endereco_bd)
+        return redirect('listar-clientes')
+    return render(request, 'clientes/confirma_exclusao.html', {'cliente': cliente_bd})

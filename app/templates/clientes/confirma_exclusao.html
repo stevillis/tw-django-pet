@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Excluir Cliente
+{% endblock title %}
+
+{% block content %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Tem certeza que deseja remover este Cliente?</h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-responsive">
+                <tbody>
+                <tr>
+                    <td>
+                        <h5 class="text-bold inline margin-bottom">Nome: </h5>
+                        {{ cliente.nome }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="text-bold inline margin-bottom">CPF: </h5>
+                        {{ cliente.cpf }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="text-bold inline margin-bottom">Data de Nascimento: </h5>
+                        {{ cliente.data_nascimento }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="text-bold inline margin-bottom">Profissão: </h5>
+                        {{ cliente.profissao }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="text-bold inline margin-bottom">Endereço: </h5>
+                        {{ cliente.endereco.rua }}, {{ cliente.endereco.cidade }} - {{ cliente.endereco.estado }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <form method="post" class="acoes-formulario">
+                {% csrf_token %}
+                <a href="{% url 'listar-clientes' %}">
+                    <button type="button" class="btn btn-md btn-default">Cancelar</button>
+                </a>
+                <button class="btn btn-danger" type="submit">Excluir</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

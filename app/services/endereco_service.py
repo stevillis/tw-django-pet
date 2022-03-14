@@ -21,3 +21,7 @@ def editar_endereco(endereco_antigo: EnderecoModel, endereco_novo: EnderecoObjec
     endereco_antigo.estado = endereco_novo.estado
     endereco_antigo.save(force_update=True)
     return endereco_antigo
+
+
+def excluir_endereco(endereco: EnderecoModel):
+    endereco.delete()
