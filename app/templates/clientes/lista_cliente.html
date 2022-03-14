@@ -14,20 +14,20 @@
                         <p class="text-muted text-center">{{ cliente.profissao }}</p>
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>E-mail</b>
+                                <b>E-mail:</b>
                                 <a class="pull-right">{{ cliente.email }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>CPF</b>
+                                <b>CPF:</b>
                                 <a class="pull-right">{{ cliente.cpf }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Data de Nascimento</b>
+                                <b>Data de Nascimento:</b>
                                 <a class="pull-right">{{ cliente.data_nascimento|date:'d/m/Y' }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Endereço</b>
-                                <a class="pull-right">
+                                <b>Endereço:</b>&nbsp;
+                                <a>
                                     {{ cliente.endereco.rua }}, {{ cliente.endereco.cidade }}
                                     - {{ cliente.endereco.estado }}
                                 </a>

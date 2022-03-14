@@ -1,9 +1,29 @@
+from typing import Tuple
+
 from django.shortcuts import redirect, render
 
 from app.entidades import cliente, endereco
 from app.forms.cliente_forms import ClienteForm
 from app.forms.endereco_forms import EnderecoForm
 from app.services import cliente_service, endereco_service
+
+
+def get_cliente_cleaned_data(form_cliente: ClienteForm) -> Tuple:
+    nome = form_cliente.cleaned_data.get('nome')
+    email = form_cliente.cleaned_data.get('email')
+    cpf = form_cliente.cleaned_data.get('cpf')
+    data_nascimento = form_cliente.cleaned_data.get('data_nascimento')
+    profissao = form_cliente.cleaned_data.get('profissao')
+
+    return nome, email, cpf, data_nascimento, profissao
+
+
+def get_endereco_cleaned_data(form_endereco: EnderecoForm) -> Tuple:
+    rua = form_endereco.cleaned_data.get('rua')
+    cidade = form_endereco.cleaned_data.get('cidade')
+    estado = form_endereco.cleaned_data.get('estado')
+
+    return rua, cidade, estado
 
 
 def listar_clientes(request):
@@ -22,16 +42,10 @@ def cadastrar_cliente(request):
         form_endereco = EnderecoForm(request.POST)
 
         if form_cliente.is_valid():
-            nome = form_cliente.cleaned_data.get('nome')
-            email = form_cliente.cleaned_data.get('email')
-            cpf = form_cliente.cleaned_data.get('cpf')
-            data_nascimento = form_cliente.cleaned_data.get('data_nascimento')
-            profissao = form_cliente.cleaned_data.get('profissao')
+            nome, email, cpf, data_nascimento, profissao = get_cliente_cleaned_data(form_cliente)
 
             if form_endereco.is_valid():
-                rua = form_endereco.cleaned_data.get('rua')
-                cidade = form_endereco.cleaned_data.get('cidade')
-                estado = form_endereco.cleaned_data.get('estado')
+                rua, cidade, estado = get_endereco_cleaned_data(form_endereco)
 
                 endereco_novo = endereco.Endereco(rua=rua, cidade=cidade, estado=estado)
                 endereco_bd = endereco_service.cadastrar_endereco(endereco_novo)
@@ -44,4 +58,40 @@ def cadastrar_cliente(request):
     else:
         form_cliente = ClienteForm()
         form_endereco = EnderecoForm()
-    return render(request, 'clientes/form_cliente.html', {'form_cliente': form_cliente, 'form_endereco': form_endereco})
+
+    context = {
+        'form_cliente': form_cliente,
+        'form_endereco': form_endereco,
+        'is_edit': False
+    }
+    return render(request, 'clientes/form_cliente.html', context)
+
+
+def editar_cliente(request, pk):
+    cliente_editar = cliente_service.listar_cliente_id(pk)
+    form_cliente = ClienteForm(request.POST or None, instance=cliente_editar)
+
+    endereco_editar = endereco_service.listar_endereco_id(cliente_editar.endereco.pk)
+    form_endereco = EnderecoForm(request.POST or None, instance=endereco_editar)
+
+    if form_cliente.is_valid():
+        nome, email, cpf, data_nascimento, profissao = get_cliente_cleaned_data(form_cliente)
+
+        if form_endereco.is_valid():
+            rua, cidade, estado = get_endereco_cleaned_data(form_endereco)
+
+            endereco_novo = endereco.Endereco(rua=rua, cidade=cidade, estado=estado)
+            endereco_editado = endereco_service.editar_endereco(cliente_editar.endereco, endereco_novo)
+
+            cliente_novo = cliente.Cliente(nome=nome, email=email, cpf=cpf, data_nascimento=data_nascimento,
+                                           profissao=profissao, endereco=endereco_editado)
+            cliente_service.editar_cliente(cliente_editar, cliente_novo)
+
+            return redirect('listar-clientes')
+
+    context = {
+        'form_cliente': form_cliente,
+        'form_endereco': form_endereco,
+        'is_edit': True
+    }
+    return render(request, 'clientes/form_cliente.html', context)

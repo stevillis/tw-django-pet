@@ -28,7 +28,7 @@
                         <td>{{ cliente.cpf }}</td>
                         <td>{{ cliente.profissao }}</td>
                         <td class="acoes-tabela">
-                            <a href="#" class="btn btn-info mr-2">
+                            <a href="{% url 'editar-cliente' cliente.pk %}" class="btn btn-info mr-2">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
                             <a href="#" class="btn btn-danger mr-2">
