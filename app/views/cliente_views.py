@@ -1,9 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from app.entidades import cliente, endereco
 from app.forms.cliente_forms import ClienteForm
 from app.forms.endereco_forms import EnderecoForm
 from app.services import cliente_service, endereco_service
+
+
+def listar_clientes(request):
+    clientes = cliente_service.listar_clientes()
+    return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
 
 
 def cadastrar_cliente(request):
@@ -29,6 +34,8 @@ def cadastrar_cliente(request):
                 cliente_novo = cliente.Cliente(nome=nome, email=email, cpf=cpf, data_nascimento=data_nascimento,
                                                profissao=profissao, endereco=endereco_bd)
                 cliente_service.cadastrar_cliente(cliente_novo)
+
+                return redirect('listar-clientes')
     else:
         form_cliente = ClienteForm()
         form_endereco = EnderecoForm()

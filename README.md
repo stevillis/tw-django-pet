@@ -16,7 +16,7 @@
 - Bootstrap
 - JavaScript
 - jQuery Mask Plugin
-- Admin LTE 2
+- Django AdminLTE 2
 - Git
 - Heroku
 

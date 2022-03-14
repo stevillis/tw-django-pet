@@ -1,3 +1,5 @@
+from django.db.models import QuerySet
+
 from app.models import Cliente
 
 
@@ -10,3 +12,7 @@ def cadastrar_cliente(cliente: Cliente):
         profissao=cliente.profissao,
         endereco=cliente.endereco
     )
+
+
+def listar_clientes() -> QuerySet:
+    return Cliente.objects.all()

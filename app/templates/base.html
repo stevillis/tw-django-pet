@@ -10,6 +10,12 @@
 
         {% endblock title %}
     </title>
+
+    {% block stylesheets %}
+        {{ block.super }}
+
+        <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    {% endblock stylesheets %}
 </head>
 <body>
 <main class="container">

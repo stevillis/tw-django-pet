@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Clientes
+{% endblock title %}
+
+{% block content %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Clientes</h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Profissão</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.nome }}</td>
+                        <td>{{ cliente.cpf }}</td>
+                        <td>{{ cliente.profissao }}</td>
+                        <td class="acoes-tabela">
+                            <a href="#" class="btn btn-info mr-2">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger mr-2">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <hr>
+            <a href="{% url 'cadastrar-cliente' %}">
+                <button class="btn btn-primary">Cadastrar</button>
+            </a>
+        </div>
+    </div>
+{% endblock content %}
