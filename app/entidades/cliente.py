@@ -1,11 +1,11 @@
 class Cliente():
-    def __int__(self, nome, email, cpf, data_nascimento, profissao, endereco):
+    def __init__(self, nome, email, cpf, data_nascimento, profissao, endereco):
         self.__nome = nome
         self.__email = email
         self.cpf = cpf
         self.__data_nascimento = data_nascimento
         self.__profissao = profissao
-        self.__emdereco = endereco
+        self.__endereco = endereco
 
     @property
     def nome(self):
