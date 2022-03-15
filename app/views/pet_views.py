@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from app.entidades import pet
 from app.forms import pet_forms
 from app.forms.pet_forms import PetForm
-from app.services import cliente_service, pet_service
+from app.services import cliente_service, consulta_service, pet_service
 
 
 def get_pet_cleaned_data(form_pet: PetForm) -> Tuple:
@@ -42,7 +42,12 @@ def cadastrar_pet(request, cliente_id):
 
 def listar_pet_id(request, pk):
     pet_bd = pet_service.listar_pet_id(pk)
-    return render(request, 'pets/lista_pet.html', {'pet': pet_bd})
+    consultas = consulta_service.listar_consultas_por_pet(pet_bd)
+    context = {
+        'pet': pet_bd,
+        'consultas': consultas
+    }
+    return render(request, 'pets/lista_pet.html', context)
 
 
 def editar_pet(request, pk):

@@ -1,5 +1,8 @@
+from django.db.models import QuerySet
+
 from app.entidades.consulta import Consulta as ConsultaObject
 from app.models import Consulta as ConsultaModel
+from app.models import Pet as PetModel
 
 
 def cadastrar_consulta(consulta: ConsultaObject):
@@ -11,3 +14,7 @@ def cadastrar_consulta(consulta: ConsultaObject):
         exames_prescritos=consulta.exames_prescritos,
         pet=consulta.pet
     )
+
+
+def listar_consultas_por_pet(pet: PetModel) -> QuerySet[ConsultaModel]:
+    return ConsultaModel.objects.filter(pet=pet).all()
