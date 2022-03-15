@@ -1,5 +1,6 @@
 from typing import Tuple
 
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 
 from app.entidades import funcionario
@@ -11,8 +12,10 @@ def get_funcionario_cleaned_data(form_funcionario: FuncionarioForm) -> Tuple:
     nome = form_funcionario.cleaned_data.get('nome')
     data_nascimento = form_funcionario.cleaned_data.get('data_nascimento')
     cargo = form_funcionario.cleaned_data.get('cargo')
+    username = form_funcionario.cleaned_data.get('username')
+    password = make_password(form_funcionario.cleaned_data.get('password1'))
 
-    return nome, data_nascimento, cargo
+    return nome, data_nascimento, cargo, username, password
 
 
 def listar_funcionarios(request):
@@ -25,8 +28,9 @@ def cadastrar_funcionario(request):
         form_funcionario = FuncionarioForm(request.POST)
 
         if form_funcionario.is_valid():
-            nome, data_nascimento, cargo = get_funcionario_cleaned_data(form_funcionario)
-            funcionario_novo = funcionario.Funcionario(nome=nome, data_nascimento=data_nascimento, cargo=cargo)
+            nome, data_nascimento, cargo, username, password = get_funcionario_cleaned_data(form_funcionario)
+            funcionario_novo = funcionario.Funcionario(nome=nome, data_nascimento=data_nascimento, cargo=cargo,
+                                                       username=username, password=password)
 
             funcionario_service.cadastrar_funcionario(funcionario_novo)
             return redirect('listar-funcionarios')

@@ -18,6 +18,7 @@
                     <th>Nome</th>
                     <th>Data de Nascimento</th>
                     <th>Cargo</th>
+                    <th>Usuário</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,7 @@
                         <td>{{ funcionario.nome }}</td>
                         <td>{{ funcionario.data_nascimento|date:'d/m/Y' }}</td>
                         <td>{{ funcionario.get_cargo_display }}</td>
+                        <td>{{ funcionario.username }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

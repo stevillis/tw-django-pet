@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from localflavor.br.br_states import STATE_CHOICES
 
@@ -58,7 +59,7 @@ class Consulta(BaseModel):
         ordering = ['-created']
 
 
-class Funcionario(BaseModel):
+class Funcionario(AbstractUser):
     CARGO_CHOICES = (
         (1, 'Veterinário'),
         (2, 'Financeiro'),

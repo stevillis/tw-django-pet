@@ -127,5 +127,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'app.Funcionario'
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
