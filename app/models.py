@@ -56,3 +56,15 @@ class Consulta(BaseModel):
 
     class Meta:
         ordering = ['-created']
+
+
+class Funcionario(BaseModel):
+    CARGO_CHOICES = (
+        (1, 'Veterinário'),
+        (2, 'Financeiro'),
+        (3, 'Atendimento'),
+    )
+
+    nome = models.CharField(max_length=100, null=False, blank=False)
+    data_nascimento = models.DateField(null=False, blank=False)
+    cargo = models.IntegerField(choices=CARGO_CHOICES, null=False, blank=False)
