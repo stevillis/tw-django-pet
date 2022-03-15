@@ -13,4 +13,5 @@ urlpatterns = [
     path('listar-pet/<int:pk>/', pet_views.listar_pet_id, name='listar-pet-id'),
 
     path('cadastrar-consulta/<int:pet_id>/', consulta_views.cadastrar_consulta, name='cadastrar-consulta'),
+    path('listar-consulta/<int:pk>/', consulta_views.listar_consulta_id, name='listar-consulta-id'),
 ]

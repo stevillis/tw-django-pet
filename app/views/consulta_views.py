@@ -42,3 +42,8 @@ def cadastrar_consulta(request, pet_id):
         'is_edit': False
     }
     return render(request, 'consultas/form_consulta.html', context)
+
+
+def listar_consulta_id(request, pk):
+    consulta = consulta_service.listar_consulta_por_id(pk)
+    return render(request, 'consultas/lista_consulta.html', {'consulta': consulta})

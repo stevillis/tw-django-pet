@@ -57,6 +57,12 @@
                                             <div class="timeline-body">
                                                 {{ consulta.motivo }}
                                             </div>
+                                            <div class="timeline-footer">
+                                                <a href="{% url 'listar-consulta-id' consulta.id %}"
+                                                   class="btn btn-primary btn-xs">
+                                                    Visualizar Consulta
+                                                </a>
+                                            </div>
                                         </div>
                                     </li>
                                 {% endfor %}

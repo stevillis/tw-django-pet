@@ -23,3 +23,7 @@ def listar_consultas_por_pet(pet: PetModel) -> QuerySet[ConsultaModel]:
 
 def listar_consultas_por_dono(dono: ClienteModel) -> QuerySet[ConsultaModel]:
     return ConsultaModel.objects.filter(pet__dono=dono).all()
+
+
+def listar_consulta_por_id(pk: int) -> ConsultaModel:
+    return ConsultaModel.objects.get(pk=pk)
