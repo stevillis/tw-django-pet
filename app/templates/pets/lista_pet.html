@@ -22,6 +22,13 @@
                                 <a class="pull-right">{{ pet.get_cor_display }}</a>
                             </li>
                         </ul>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="{% url 'cadastrar-consulta' pet.id %}" class="btn btn-primary btn-block">
+                                    Cadastrar Consulta
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
