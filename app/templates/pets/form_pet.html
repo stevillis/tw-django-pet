@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if is_edit %}
+        Editar dados do Pet
+    {% else %}
+        Cadastro de Pet
+    {% endif %}
+{% endblock title %}
+
+{% block content %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                {% if is_edit %}
+                    Editar dados do Pet
+                {% else %}
+                    Cadastro de Pet
+                {% endif %}
+            </h3>
+        </div>
+        <div class="box-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Nome: </label>
+                    {{ form_pet.nome }}
+                    <small class="text-danger">{{ form_pet.nome.errors|striptags }}</small>
+                </div>
+                <div class="form-group">
+                    <label>Data de Nascimento: </label>
+                    {{ form_pet.data_nascimento }}
+                    <small class="text-danger">{{ form_pet.data_nascimento.errors|striptags }}</small>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Categoria: </label>
+                            {{ form_pet.categoria }}
+                            <small class="text-danger">{{ form_pet.categoria.errors|striptags }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Cor: </label>
+                            {{ form_pet.cor }}
+                            <small class="text-danger">{{ form_pet.cor.errors|striptags }}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group text-center acoes-formulario">
+                    <a href="{% url 'listar-clientes' %}">
+                        <button type="button" class="btn btn-md btn-default">Cancelar</button>
+                    </a>
+                    {% if is_edit %}
+                        <input type="submit" class="btn btn-md btn-success" value="Salvar">
+                    {% else %}
+                        <input type="submit" class="btn btn-md btn-primary" value="Cadastrar">
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
