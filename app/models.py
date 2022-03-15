@@ -48,7 +48,7 @@ class Pet(BaseModel):
 
 class Consulta(BaseModel):
     motivo = models.CharField(max_length=200, null=False, blank=False)
-    peso_atual = models.FloatField(null=False, blank=False)
+    peso_atual = models.DecimalField(null=False, blank=False, max_digits=5, decimal_places=3)
     medicacao_atual = models.TextField(null=False, blank=True)
     medicacao_prescrita = models.TextField(null=False, blank=True)
     exames_prescritos = models.TextField(null=False, blank=True)
