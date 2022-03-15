@@ -2,9 +2,9 @@
 
 {% block title %}
     {% if is_edit %}
-        Editar dados do Pet
+        Editar dados do Pet — Dono: {{ dono }}
     {% else %}
-        Cadastro de Pet
+        Cadastro de Pet — Dono: {{ dono }}
     {% endif %}
 {% endblock title %}
 
@@ -13,9 +13,9 @@
         <div class="box-header with-border">
             <h3 class="box-title">
                 {% if is_edit %}
-                    Editar dados do Pet
+                    Editar dados do Pet — Dono: {{ dono }}
                 {% else %}
-                    Cadastro de Pet
+                    Cadastro de Pet — Dono: {{ dono }}
                 {% endif %}
             </h3>
         </div>

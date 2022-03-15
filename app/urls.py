@@ -10,5 +10,5 @@ urlpatterns = [
     path('excluir-cliente/<int:pk>/', cliente_views.excluir_cliente, name='excluir-cliente'),
 
     path('cadastrar-pet/<int:cliente_id>/', pet_views.cadastrar_pet, name='cadastrar-pet'),
-    path('listar-pet/<int:pk>/', pet_views.listar_pet_id, name='listar-pet'),
+    path('listar-pet/<int:pk>/', pet_views.listar_pet_id, name='listar-pet-id'),
 ]

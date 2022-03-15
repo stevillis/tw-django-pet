@@ -19,7 +19,7 @@ def cadastrar_cliente(cliente: ClienteModel):
     )
 
 
-def listar_clientes() -> QuerySet:
+def listar_clientes() -> QuerySet[ClienteModel]:
     return ClienteModel.objects.all()
 
 

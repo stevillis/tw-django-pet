@@ -19,12 +19,12 @@ def get_pet_cleaned_data(form_pet: PetForm) -> Tuple:
 
 
 def cadastrar_pet(request, cliente_id):
+    dono_bd = cliente_service.listar_cliente_id(cliente_id)
     if request.method == 'POST':
         form_pet = pet_forms.PetForm(request.POST)
 
         if form_pet.is_valid():
             nome, data_nascimento, categoria, cor, _ = get_pet_cleaned_data(form_pet)
-            dono_bd = cliente_service.listar_cliente_id(cliente_id)
 
             pet_novo = pet.Pet(nome=nome, data_nascimento=data_nascimento, categoria=categoria, cor=cor, dono=dono_bd)
             pet_service.cadastrar_pet(pet_novo)
@@ -34,6 +34,7 @@ def cadastrar_pet(request, cliente_id):
         form_pet = pet_forms.PetForm()
     context = {
         'form_pet': form_pet,
+        'dono': dono_bd.nome,
         'is_edit': False
     }
     return render(request, 'pets/form_pet.html', context)

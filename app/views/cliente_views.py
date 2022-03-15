@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from app.entidades import cliente, endereco
 from app.forms.cliente_forms import ClienteForm
 from app.forms.endereco_forms import EnderecoForm
-from app.services import cliente_service, endereco_service
+from app.services import cliente_service, endereco_service, pet_service
 
 
 def get_cliente_cleaned_data(form_cliente: ClienteForm) -> Tuple:
@@ -33,7 +33,12 @@ def listar_clientes(request):
 
 def listar_cliente_id(request, pk):
     cliente_bd = cliente_service.listar_cliente_id(pk)
-    return render(request, 'clientes/lista_cliente.html', {'cliente': cliente_bd})
+    pets = pet_service.listar_pets_por_dono(cliente_bd)
+    context = {
+        'cliente': cliente_bd,
+        'pets': pets
+    }
+    return render(request, 'clientes/lista_cliente.html', context)
 
 
 def cadastrar_cliente(request):

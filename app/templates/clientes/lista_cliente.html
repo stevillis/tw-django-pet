@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Cliente
+    Cliente - {{ cliente.nome }}
 {% endblock title %}
 
 {% block content %}
@@ -40,10 +40,22 @@
                         <h3 class="box-title">Pets</h3>
                     </div>
                     <div class="box-body">
-                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-                        <p class="text-muted">
-                            B.S. in Computer Science from the University of Tennessee at Knoxville
-                        </p>
+                        {% for pet in pets %}
+                            <a href="{% url 'listar-pet-id' pet.id %}">
+                                <strong><i class="fa fa-paw margin-r-5"></i>{{ pet.nome }}</strong>
+                            </a>
+                            <p class="text-muted">
+                                {{ pet.get_categoria_display }} - {{ pet.get_cor_display }}
+                            </p>
+                            <hr>
+                        {% endfor %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="{% url 'cadastrar-pet' cliente.id %}" class="btn btn-primary btn-block">
+                                    Cadastrar Pet
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

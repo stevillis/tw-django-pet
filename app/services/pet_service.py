@@ -1,9 +1,11 @@
 from typing import Union
 
+from django.db.models import QuerySet
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from app.entidades.pet import Pet as PetObject
+from app.models import Cliente as ClienteModel
 from app.models import Pet as PetModel
 
 
@@ -19,6 +21,10 @@ def cadastrar_pet(pet: PetModel):
 
 def listar_pet_id(pk: int) -> Union[PetModel, Http404]:
     return get_object_or_404(PetModel, pk=pk)
+
+
+def listar_pets_por_dono(dono: ClienteModel) -> QuerySet[PetModel]:
+    return PetModel.objects.filter(dono=dono).all()
 
 
 def editar_pet(pet_antigo: PetModel, pet_novo: PetObject):
