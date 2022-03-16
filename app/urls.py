@@ -1,7 +1,7 @@
 from django.urls import path
 
-from app.views import (cliente_views, consulta_views, funcionario_views,
-                       pet_views)
+from app.views import (autenticacao_views, cliente_views, consulta_views,
+                       funcionario_views, pet_views)
 
 urlpatterns = [
     # Cliente
@@ -22,4 +22,8 @@ urlpatterns = [
     # Funcionario
     path('cadastrar-funcionario/', funcionario_views.cadastrar_funcionario, name='cadastrar-funcionario'),
     path('listar-funcionarios/', funcionario_views.listar_funcionarios, name='listar-funcionarios'),
+
+    # Autenticação
+    path('login/', autenticacao_views.login_usuario, name='login'),
+    path('logout/', autenticacao_views.deslogar_usuario, name='logout'),
 ]

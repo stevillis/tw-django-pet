@@ -131,3 +131,6 @@ AUTH_USER_MODEL = 'app.Funcionario'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+LOGOUT_URL = '/app/logout'
+LOGIN_URL = 'login'
