@@ -2,6 +2,15 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from localflavor.br.br_states import STATE_CHOICES
 
+CARGO_VETERINARIO_CHOICE = 1
+CARGO_FINANCEIRO_CHOICE = 2
+CARGO_ATENDIMENTO_CHOICE = 3
+CARGO_CHOICES = (
+    (CARGO_VETERINARIO_CHOICE, 'Veterinário'),
+    (CARGO_FINANCEIRO_CHOICE, 'Financeiro'),
+    (CARGO_ATENDIMENTO_CHOICE, 'Atendimento'),
+)
+
 
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -60,12 +69,6 @@ class Consulta(BaseModel):
 
 
 class Funcionario(AbstractUser):
-    CARGO_CHOICES = (
-        (1, 'Veterinário'),
-        (2, 'Financeiro'),
-        (3, 'Atendimento'),
-    )
-
     nome = models.CharField(max_length=100, null=False, blank=False)
     data_nascimento = models.DateField(null=False, blank=False)
     cargo = models.IntegerField(choices=CARGO_CHOICES, null=False, blank=False)

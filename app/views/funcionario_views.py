@@ -1,11 +1,13 @@
 from typing import Tuple
 
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 
 from app.entidades import funcionario
 from app.forms.funcionario_forms import FuncionarioForm
 from app.services import funcionario_service
+from app.utils.permissions import has_cargo_financeiro
 
 
 def get_funcionario_cleaned_data(form_funcionario: FuncionarioForm) -> Tuple:
@@ -18,11 +20,13 @@ def get_funcionario_cleaned_data(form_funcionario: FuncionarioForm) -> Tuple:
     return nome, data_nascimento, cargo, username, password
 
 
+@user_passes_test(lambda user: has_cargo_financeiro(user))
 def listar_funcionarios(request):
     funcionarios = funcionario_service.listar_funcionarios()
     return render(request, 'funcionarios/lista_funcionarios.html', {'funcionarios': funcionarios})
 
 
+@user_passes_test(lambda user: has_cargo_financeiro(user))
 def cadastrar_funcionario(request):
     if request.method == 'POST':
         form_funcionario = FuncionarioForm(request.POST)

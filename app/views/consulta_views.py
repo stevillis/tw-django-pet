@@ -1,11 +1,13 @@
 from typing import Tuple
 
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import redirect, render
 
 from app.entidades import consulta
 from app.forms import consulta_forms
 from app.forms.consulta_forms import ConsultaForm
 from app.services import consulta_service, pet_service
+from app.utils.permissions import has_cargo_veterinario
 
 
 def get_pet_cleaned_data(form_consulta: ConsultaForm) -> Tuple:
@@ -19,6 +21,7 @@ def get_pet_cleaned_data(form_consulta: ConsultaForm) -> Tuple:
     return motivo, peso_atual, medicacao_atual, medicacao_prescrita, exames_prescritos, pet
 
 
+@user_passes_test(lambda user: has_cargo_veterinario(user))
 def cadastrar_consulta(request, pet_id):
     pet_bd = pet_service.listar_pet_id(pet_id)
     if request.method == 'POST':
@@ -44,6 +47,7 @@ def cadastrar_consulta(request, pet_id):
     return render(request, 'consultas/form_consulta.html', context)
 
 
+@login_required()
 def listar_consulta_id(request, pk):
-    consulta = consulta_service.listar_consulta_por_id(pk)
-    return render(request, 'consultas/lista_consulta.html', {'consulta': consulta})
+    consulta_bd = consulta_service.listar_consulta_por_id(pk)
+    return render(request, 'consultas/lista_consulta.html', {'consulta': consulta_bd})

@@ -1,5 +1,6 @@
 from typing import Tuple
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from app.entidades import pet
@@ -18,6 +19,7 @@ def get_pet_cleaned_data(form_pet: PetForm) -> Tuple:
     return nome, data_nascimento, categoria, cor, dono
 
 
+@login_required()
 def cadastrar_pet(request, cliente_id):
     dono_bd = cliente_service.listar_cliente_id(cliente_id)
     if request.method == 'POST':
@@ -40,6 +42,7 @@ def cadastrar_pet(request, cliente_id):
     return render(request, 'pets/form_pet.html', context)
 
 
+@login_required()
 def listar_pet_id(request, pk):
     pet_bd = pet_service.listar_pet_id(pk)
     consultas = consulta_service.listar_consultas_por_pet(pet_bd)
@@ -50,6 +53,7 @@ def listar_pet_id(request, pk):
     return render(request, 'pets/lista_pet.html', context)
 
 
+@login_required()
 def editar_pet(request, pk):
     pet_antigo = pet_service.listar_pet_id(pk)
     form_pet = pet_forms.PetForm(request.POST or None, instance=pet_antigo)

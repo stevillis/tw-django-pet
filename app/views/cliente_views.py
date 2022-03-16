@@ -1,5 +1,6 @@
 from typing import Tuple
 
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import redirect, render
 
 from app.entidades import cliente, endereco
@@ -7,6 +8,7 @@ from app.forms.cliente_forms import ClienteForm
 from app.forms.endereco_forms import EnderecoForm
 from app.services import (cliente_service, consulta_service, endereco_service,
                           pet_service)
+from app.utils.permissions import has_cargo_financeiro
 
 
 def get_cliente_cleaned_data(form_cliente: ClienteForm) -> Tuple:
@@ -27,11 +29,13 @@ def get_endereco_cleaned_data(form_endereco: EnderecoForm) -> Tuple:
     return rua, cidade, estado
 
 
+@login_required()
 def listar_clientes(request):
     clientes = cliente_service.listar_clientes()
     return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
 
 
+@login_required()
 def listar_cliente_id(request, pk):
     cliente_bd = cliente_service.listar_cliente_id(pk)
     pets = pet_service.listar_pets_por_dono(cliente_bd)
@@ -44,6 +48,7 @@ def listar_cliente_id(request, pk):
     return render(request, 'clientes/lista_cliente.html', context)
 
 
+@login_required()
 def cadastrar_cliente(request):
     if request.method == 'POST':
         form_cliente = ClienteForm(request.POST)
@@ -75,6 +80,7 @@ def cadastrar_cliente(request):
     return render(request, 'clientes/form_cliente.html', context)
 
 
+@user_passes_test(lambda user: has_cargo_financeiro(user))
 def editar_cliente(request, pk):
     cliente_editar = cliente_service.listar_cliente_id(pk)
     form_cliente = ClienteForm(request.POST or None, instance=cliente_editar)
@@ -105,6 +111,7 @@ def editar_cliente(request, pk):
     return render(request, 'clientes/form_cliente.html', context)
 
 
+@user_passes_test(lambda user: has_cargo_financeiro(user))
 def excluir_cliente(request, pk):
     cliente_bd = cliente_service.listar_cliente_id(pk)
     endereco_bd = endereco_service.listar_endereco_id(pk)
