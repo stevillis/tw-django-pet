@@ -45,12 +45,18 @@
                 <br>
                 <b>Medicamentos Prescritos: </b> {{ consulta.medicacao_prescrita }}
                 <br>
-                <b>Exams Prescritos: </b> {{ consulta.exames_prescritos }}
+                <b>Exames Prescritos: </b> {{ consulta.exames_prescritos }}
                 <br>
             </div>
         </div>
         <div class="row no-print">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12 text-center acoes-formulario">
+                <a href="{% url 'enviar-email-consulta' consulta.id %}">
+                    <button type="button" class="btn btn-default">
+                        <i class="fa fa-send"></i>&nbsp;
+                        Enviar por e-mail
+                    </button>
+                </a>
                 <button type="button" class="btn btn-primary" onclick="window.print();">
                     <i class="fa fa-print"></i>&nbsp;
                     Imprimir

@@ -18,6 +18,7 @@ urlpatterns = [
     # Consulta
     path('cadastrar-consulta/<int:pet_id>/', consulta_views.cadastrar_consulta, name='cadastrar-consulta'),
     path('listar-consulta/<int:pk>/', consulta_views.listar_consulta_id, name='listar-consulta-id'),
+    path('enviar-email-consulta/<int:pk>/', consulta_views.enviar_email_consulta, name='enviar-email-consulta'),
 
     # Funcionario
     path('cadastrar-funcionario/', funcionario_views.cadastrar_funcionario, name='cadastrar-funcionario'),

@@ -1,7 +1,10 @@
 from typing import Tuple
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.mail import send_mail
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 
 from app.entidades import consulta
 from app.forms import consulta_forms
@@ -51,3 +54,17 @@ def cadastrar_consulta(request, pet_id):
 def listar_consulta_id(request, pk):
     consulta_bd = consulta_service.listar_consulta_por_id(pk)
     return render(request, 'consultas/lista_consulta.html', {'consulta': consulta_bd})
+
+
+@login_required()
+def enviar_email_consulta(request, pk):
+    consulta_bd = consulta_service.listar_consulta_por_id(pk)
+    pet_consulta = pet_service.listar_pet_id(consulta_bd.pet.id)
+    assunto = 'Consulta do seu Pet'
+    mensagem_html = render_to_string('consultas/consulta_email.html', {'consulta': consulta_bd})
+    corpo_email = 'Resumo da consulta do seu Pet'
+    email_remetente = settings.EMAIL_HOST_USER
+    email_destino = (pet_consulta.dono.email,)
+    send_mail(assunto, corpo_email, email_remetente, email_destino, html_message=mensagem_html)
+
+    return redirect('listar-consulta-id', pk)
