@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from localflavor.br.br_states import STATE_CHOICES
@@ -70,5 +72,5 @@ class Consulta(BaseModel):
 
 class Funcionario(AbstractUser):
     nome = models.CharField(max_length=100, null=False, blank=False)
-    data_nascimento = models.DateField(null=False, blank=False)
-    cargo = models.IntegerField(choices=CARGO_CHOICES, null=False, blank=False)
+    data_nascimento = models.DateField(null=False, blank=False, default=datetime.date.today())
+    cargo = models.IntegerField(choices=CARGO_CHOICES, null=False, blank=False, default=CARGO_ATENDIMENTO_CHOICE)
