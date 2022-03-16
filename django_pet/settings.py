@@ -147,3 +147,4 @@ django_heroku.settings(locals())
 
 LOGOUT_URL = '/app/logout'
 LOGIN_URL = 'login'
+
