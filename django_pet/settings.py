@@ -79,12 +79,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'django_pet.wsgi.application'
 
 # Email
-EMAIL_BACKEND = env('EMAIL_BACKEND')
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+# EMAIL_BACKEND = env('EMAIL_BACKEND')
+# EMAIL_HOST = env('EMAIL_HOST')
+# EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+# EMAIL_PORT = env('EMAIL_PORT')
+# EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -147,4 +147,3 @@ django_heroku.settings(locals())
 
 LOGOUT_URL = '/app/logout'
 LOGIN_URL = 'login'
-
